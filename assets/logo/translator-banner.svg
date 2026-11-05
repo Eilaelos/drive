@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1360 480" width="1360" height="480">
-  <title>Vertaalbot banner</title>
+  <title>Translator banner</title>
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0" stop-color="#5865F2"/><stop offset="1" stop-color="#9B4DF5"/>
@@ -20,7 +20,7 @@
   <rect width="1360" height="480" fill="url(#bg)"/>
   <rect width="1360" height="480" fill="url(#dots)"/>
   <rect width="1360" height="480" fill="url(#glow)"/>
-  <!-- golvende "vertaalstroom" -->
+  <!-- wavy "translation stream" -->
   <path d="M0 400 C 250 330, 420 470, 700 390 S 1150 300, 1360 360" fill="none" stroke="#5CF2C2" stroke-opacity="0.35" stroke-width="5" stroke-linecap="round" stroke-dasharray="2 16"/>
   <g font-family="Inter, 'IPAGothic', 'DejaVu Sans', sans-serif" font-weight="700">
   <g transform="rotate(-6 165 98)" filter="url(#sh)">
@@ -68,14 +68,14 @@
     <text x="502" y="451" font-size="20" fill="#FFFFFF" fill-opacity="0.85" text-anchor="middle">Hej</text>
   </g>
   </g>
-  <!-- sterretjes -->
+  <!-- sparkles -->
   <g fill="#FEE75C">
     <path d="M1250 60 q8 40 48 48 q-40 8 -48 48 q-8 -40 -48 -48 q40 -8 48 -48z"/>
     <path d="M905 380 q4 22 26 26 q-22 4 -26 26 q-4 -22 -26 -26 q22 -4 26 -26z" opacity="0.8"/>
   </g>
-  <!-- woordmerk -->
+  <!-- wordmark -->
   <g font-family="'Inter Display', Inter, sans-serif" text-anchor="end">
-    <text x="1290" y="255" font-size="118" font-weight="900" fill="#FFFFFF" letter-spacing="-3">Vertaal<tspan fill="#FEE75C">bot</tspan></text>
-    <text x="1290" y="318" font-size="34" font-weight="600" fill="#FFFFFF" fill-opacity="0.85">Elke taal. Eén server.</text>
+    <text x="1290" y="255" font-size="118" font-weight="900" fill="#FFFFFF" letter-spacing="-3">Trans<tspan fill="#FEE75C">lator</tspan></text>
+    <text x="1290" y="318" font-size="34" font-weight="600" fill="#FFFFFF" fill-opacity="0.85">Every language. One server.</text>
   </g>
 </svg>

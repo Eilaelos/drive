@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024">
-  <title>Vertaalbot</title>
+  <title>Translator</title>
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0" stop-color="#5865F2"/>
@@ -25,18 +25,18 @@
     </filter>
   </defs>
 
-  <!-- achtergrond -->
+  <!-- background -->
   <rect width="1024" height="1024" rx="232" fill="url(#bg)"/>
   <rect width="1024" height="1024" rx="232" fill="url(#glow)"/>
 
-  <!-- sterretjes -->
+  <!-- sparkles -->
   <g fill="#FEE75C">
     <path d="M820 170 q10 52 62 62 q-52 10 -62 62 q-10 -52 -62 -62 q52 -10 62 -62z"/>
     <path d="M880 330 q5 26 31 31 q-26 5 -31 31 q-5 -26 -31 -31 q26 -5 31 -31z" opacity="0.8"/>
     <path d="M160 840 q6 32 38 38 q-32 6 -38 38 q-6 -32 -38 -38 q32 -6 38 -38z" opacity="0.7"/>
   </g>
 
-  <!-- linker ballon: de bot (met antenne) -->
+  <!-- left bubble: the bot (with antenna) -->
   <g filter="url(#shadow)">
     <line x1="400" y1="250" x2="400" y2="168" stroke="#FFFFFF" stroke-width="22" stroke-linecap="round"/>
     <circle cx="400" cy="150" r="48" fill="#FEE75C" filter="url(#halo)" opacity="0.7"/>
@@ -49,7 +49,7 @@
     <path d="M327 462 H423"/>
   </g>
 
-  <!-- rechter ballon: 文 -->
+  <!-- right bubble: 文 -->
   <g filter="url(#shadow)">
     <path fill="url(#mint)" stroke="#7458F4" stroke-width="26" stroke-linejoin="round"
           d="M620 460 H720 A140 140 0 0 1 860 600 V660 A140 140 0 0 1 790 781 L830 870 L700 800 H620 A140 140 0 0 1 480 660 V600 A140 140 0 0 1 620 460 Z"/>
