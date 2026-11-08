@@ -1,0 +1,54 @@
+name: Dark War auto-redeem
+
+on:
+  schedule:
+    - cron: "17 */6 * * *"   # every 6 hours
+  workflow_dispatch:
+    inputs:
+      codes:
+        description: "Extra codes for this run (comma-separated, optional)"
+        required: false
+        default: ""
+  push:
+    paths: ["tools/darkwar-autoredeem/codes.json"]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: darkwar-autoredeem
+  cancel-in-progress: false
+
+jobs:
+  redeem:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      DWS_UIDS: ${{ secrets.DWS_UIDS }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      # state.json holds which UID/code pairs are done. It contains UIDs, so it lives in the
+      # Actions cache instead of being committed.
+      - name: Restore state
+        uses: actions/cache/restore@v4
+        with:
+          path: tools/darkwar-autoredeem/state.json
+          key: dws-state-${{ github.run_id }}
+          restore-keys: dws-state-
+      - name: Redeem
+        if: ${{ env.DWS_UIDS != '' }}
+        env:
+          DWS_EXTRA_CODES: ${{ github.event.inputs.codes }}
+        run: node tools/darkwar-autoredeem/redeem.mjs
+      - name: Missing secret
+        if: ${{ env.DWS_UIDS == '' }}
+        run: echo "::warning::Set the repository secret DWS_UIDS (comma-separated UIDs) to enable auto-redeem."
+      - name: Save state
+        if: ${{ always() && hashFiles('tools/darkwar-autoredeem/state.json') != '' }}
+        uses: actions/cache/save@v4
+        with:
+          path: tools/darkwar-autoredeem/state.json
+          key: dws-state-${{ github.run_id }}
