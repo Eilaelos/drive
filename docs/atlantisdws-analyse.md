@@ -28,6 +28,7 @@ De QR-sessie is alleen nodig voor check-in, VIP, War Pass en de webshop.
 | Codelijst | door hun team bijgehouden | gedeelde lijst, door spelers aangevuld, met meldingen "werkt" en "verlopen" |
 | Eén-klik inwisselen in de browser | ja (via hun server) | nee: de pagina mag geen andere sites contacteren. Wel een assistent: UID en code kopiëren, Gift Center openen, resultaat bijhouden per survivor |
 | Volautomatisch, op schema | Atlantis+ | `tools/darkwar-autoredeem` + GitHub Action elke 6 uur, gratis |
+| Discord | community-Discord, DM bij verlopen sessie | bot met `/link`, `/redeem`, automatisch inwisselen en DM's, 6 talen |
 | Check-in, VIP, War Pass | Atlantis+ (QR-sessie) | bewust niet: dat vraagt sessiesleutels van spelers op een server te bewaren |
 | Talen | Engels (+ taalkeuze) | NL, EN, FR, ES, DE, AR (rechts-naar-links) |
 
@@ -35,7 +36,9 @@ De QR-sessie is alleen nodig voor check-in, VIP, War Pass en de webshop.
 
 State Archives (alle states en records), Hive Planner en Community Hives, Capital Planner, Black Gold Planner, Red Gear-, Chip-, Exclusive Weapon- en APC Workshop-calculator, Industrial Buildings, Migration Center (allianties zoeken/aanbieden), Power Arena-leaderboard, Supremacy (SvS-archief), Achievements/badges, een FAQ met 230+ antwoorden, Server Time, Wiki, een tekstgenerator voor gekleurde bio-tekst, Content Creators, AtlantisTV en mini-games (Arcade).
 
-Logische volgende stappen voor onze hub: een Red Gear-calculator, een Black Gold Battlefield-planner en een Discord-commando `/redeem` in de bot, dat dezelfde twee API-aanroepen gebruikt.
+De Discord-bot in `bots/darkwar-redeem-bot` doet het Atlantis-Gift Center na binnen Discord: `/link` je UID één keer en elke nieuwe code wordt automatisch ingewisseld, ook codes uit een gevolgd officieel aankondigingskanaal.
+
+Logische volgende stappen voor de hub: een Red Gear-calculator en een Black Gold Battlefield-planner.
 
 ## Kanttekeningen
 
