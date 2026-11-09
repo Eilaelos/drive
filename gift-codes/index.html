@@ -1,0 +1,677 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gift Code Center</title>
+<meta name="description" content="Unofficial Dark War: Survival gift code list and multi-account redeem helper.">
+<style>
+:root{
+  --bg:#f6f4ef;--surface:#ffffff;--inset:#f1eee6;--text:#1c1b19;--muted:#6b675e;--border:#e1dccf;
+  --accent:#b8860b;--accent-ink:#ffffff;--accent-soft:#f5ebd2;
+  --ok:#2f7d4f;--ok-soft:#e1f1e7;--warn:#9a6a00;--warn-soft:#fbf0d6;--bad:#b23b3b;--bad-soft:#f8e1e1;
+  --shadow:0 1px 2px rgba(0,0,0,.05),0 4px 16px rgba(0,0,0,.05);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#121212;--surface:#1b1b1a;--inset:#232321;--text:#ece9e1;--muted:#a19c90;--border:#33312c;
+  --accent:#e0b44c;--accent-ink:#1a1405;--accent-soft:#3a2f14;
+  --ok:#5cc485;--ok-soft:#173222;--warn:#e7b54a;--warn-soft:#3a2d10;--bad:#ec7a7a;--bad-soft:#3a1a1a;
+  --shadow:none;}}
+:root[data-theme="dark"]{
+  --bg:#121212;--surface:#1b1b1a;--inset:#232321;--text:#ece9e1;--muted:#a19c90;--border:#33312c;
+  --accent:#e0b44c;--accent-ink:#1a1405;--accent-soft:#3a2f14;
+  --ok:#5cc485;--ok-soft:#173222;--warn:#e7b54a;--warn-soft:#3a2d10;--bad:#ec7a7a;--bad-soft:#3a1a1a;
+  --shadow:none;}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--text);font:15px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.wrap{max-width:880px;margin:0 auto;padding:24px 16px 64px}
+header.top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:20px}
+.brand{font-weight:800;letter-spacing:.08em;font-size:13px;text-transform:uppercase}
+.brand span{color:var(--accent)}
+h1{font-size:28px;line-height:1.15;margin:0 0 6px}
+h2{font-size:17px;margin:0 0 4px}
+p{margin:0}
+.muted{color:var(--muted)}
+.small{font-size:12px}
+.tile{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:18px;box-shadow:var(--shadow);margin-bottom:16px}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:14px}
+.step{background:var(--inset);border-radius:10px;padding:10px 12px}
+.step b{display:block;font-size:12px;color:var(--accent);letter-spacing:.08em}
+.step span{font-size:13px}
+@media (max-width:560px){.steps{grid-template-columns:1fr}}
+button,.btn{font:inherit;font-weight:600;font-size:14px;border-radius:10px;border:1px solid var(--border);background:var(--surface);color:var(--text);padding:8px 14px;cursor:pointer;display:inline-flex;align-items:center;gap:6px;text-decoration:none;min-height:38px}
+button:hover,.btn:hover{border-color:var(--muted)}
+button:disabled{opacity:.5;cursor:not-allowed}
+.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.primary:hover{filter:brightness(1.05);border-color:var(--accent)}
+.ghost{background:transparent;border-color:transparent;color:var(--muted);padding:6px 8px;min-height:32px}
+.ghost:hover{color:var(--text);border-color:var(--border)}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.between{justify-content:space-between}
+input,select{font:inherit;font-size:14px;border:1px solid var(--border);background:var(--inset);color:var(--text);border-radius:10px;padding:8px 10px;min-height:38px;min-width:0}
+input:focus,select:focus,button:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+ul.list{list-style:none;margin:12px 0 0;padding:0;display:grid;gap:6px}
+.item{background:var(--inset);border-radius:10px;padding:10px 12px;display:flex;align-items:center;justify-content:space-between;gap:10px}
+.code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-weight:700;font-size:14px;overflow:hidden;text-overflow:ellipsis}
+.badge{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;border-radius:999px;padding:2px 8px;border:1px solid var(--border);white-space:nowrap}
+.b-new{background:var(--accent-soft);border-color:var(--accent);color:var(--accent)}
+.b-ok{background:var(--ok-soft);border-color:transparent;color:var(--ok)}
+.b-warn{background:var(--warn-soft);border-color:transparent;color:var(--warn)}
+.b-bad{background:var(--bad-soft);border-color:transparent;color:var(--bad)}
+.min0{min-width:0}
+.codebtn{padding:0;min-height:0;text-align:left;display:block;color:var(--text)}
+.codebtn:hover{color:var(--accent)}
+#typedCode{text-transform:uppercase}
+#typedCode::placeholder{text-transform:none}
+.addrow{display:flex;gap:8px;flex-wrap:nowrap}
+.addrow #addName{flex:2 1 0;min-width:0}
+@media (max-width:560px){.addrow{flex-wrap:wrap}.addrow #addName{flex:1 1 100%}}
+.surv{display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:center}
+.surv input[type=checkbox]{width:18px;height:18px;min-height:0;accent-color:var(--accent)}
+.bar{height:6px;background:var(--border);border-radius:99px;overflow:hidden;margin-top:6px}
+.bar i{display:block;height:100%;background:var(--accent);width:0;transition:width .2s}
+.empty{padding:14px;text-align:center;color:var(--muted);font-size:13px;background:var(--inset);border-radius:10px;margin-top:12px}
+details summary{cursor:pointer;font-weight:600}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+@media (max-width:560px){.grid2{grid-template-columns:1fr}}
+/* claim dialog */
+dialog{border:1px solid var(--border);border-radius:16px;background:var(--surface);color:var(--text);padding:0;width:min(520px,calc(100vw - 32px));max-height:calc(100vh - 32px)}
+dialog::backdrop{background:rgba(0,0,0,.5)}
+.dlg{padding:20px}
+.big-code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:26px;font-weight:800;letter-spacing:.04em;text-align:center;background:var(--inset);border-radius:12px;padding:14px;margin:12px 0;word-break:break-all}
+.res{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}
+.res button{justify-content:center;min-width:0;padding:8px 6px;flex-wrap:wrap;text-align:center}
+.r-ok{background:var(--ok-soft);color:var(--ok);border-color:transparent}
+.r-warn{background:var(--warn-soft);color:var(--warn);border-color:transparent}
+.r-bad{background:var(--bad-soft);color:var(--bad);border-color:transparent}
+kbd{font-family:ui-monospace,monospace;font-size:11px;border:1px solid var(--border);border-radius:4px;padding:0 4px;opacity:.8}
+.toast{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);background:var(--text);color:var(--bg);padding:8px 14px;border-radius:10px;font-size:13px;font-weight:600;opacity:0;transition:opacity .2s;pointer-events:none;z-index:10}
+.toast.show{opacity:1}
+footer{font-size:12px;color:var(--muted);margin-top:24px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div class="brand">Gift Code <span>Center</span></div>
+    <div class="row">
+      <button class="ghost" id="themeBtn" type="button" aria-label="Toggle theme">◐ Theme</button>
+    </div>
+  </header>
+
+  <section class="tile">
+    <h1>Dark War: Survival gift codes</h1>
+    <p class="muted">Every working code in one list. Add all your survivors and step through each code for each account. The page remembers what each survivor has already claimed and skips it next time.</p>
+    <div class="steps">
+      <div class="step"><b>1 · ADD</b><span>Add your survivors by UID</span></div>
+      <div class="step"><b>2 · CLAIM</b><span>Step through every unclaimed code</span></div>
+      <div class="step"><b>3 · COLLECT</b><span>Rewards land in your in-game mail</span></div>
+    </div>
+  </section>
+
+  <section class="tile" id="survivorsTile">
+    <div class="row between">
+      <h2>My Survivors <span class="muted small" id="survCount"></span></h2>
+      <label class="row small muted"><input type="checkbox" id="selectAll"> Select all</label>
+    </div>
+    <ul class="list" id="survList"></ul>
+    <form class="grid2" id="addForm" style="margin-top:12px" autocomplete="off">
+      <input id="addUid" inputmode="numeric" placeholder="Survivor UID (6–20 digits)" required>
+      <div class="addrow">
+        <input id="addName" placeholder="Name (optional)">
+        <select id="addLabel" aria-label="Label" style="flex:1"></select>
+        <button type="submit">Add</button>
+      </div>
+    </form>
+    <div class="row" style="margin-top:14px">
+      <button class="primary" id="claimAllBtn" type="button">▶ Claim all active codes</button>
+      <span class="muted small" id="pendingInfo"></span>
+    </div>
+    <form class="row" id="typedForm" style="margin-top:12px" autocomplete="off">
+      <input id="typedCode" placeholder="Have a code we haven't listed? Type it" style="flex:1" maxlength="32">
+      <button type="submit">Redeem</button>
+    </form>
+  </section>
+
+  <section class="tile">
+    <div class="row between">
+      <h2>Active gift codes</h2>
+      <span class="muted small" id="updated"></span>
+    </div>
+    <p class="muted small">Current working codes. Tap a code to copy it.</p>
+    <ul class="list" id="activeList"></ul>
+  </section>
+
+  <section class="tile">
+    <details>
+      <summary>Unavailable gift codes <span class="muted small" id="goneCount"></span></summary>
+      <p class="muted small" style="margin-top:6px">These codes no longer work.</p>
+      <ul class="list" id="goneList"></ul>
+    </details>
+  </section>
+
+  <section class="tile">
+    <details>
+      <summary>Settings &amp; data</summary>
+      <div style="margin-top:12px;display:grid;gap:12px">
+        <div>
+          <p class="small muted" style="margin-bottom:6px">Code feed URL: a JSON file shaped like <code>codes.json</code>. Leave it empty to use <code>codes.json</code> next to this page.</p>
+          <div class="row"><input id="feedUrl" placeholder="https://…/codes.json" style="flex:1"><button id="feedSave" type="button">Save &amp; reload</button></div>
+        </div>
+        <div>
+          <p class="small muted" style="margin-bottom:6px">Gift center URL opened by the claim helper.</p>
+          <div class="row"><input id="gcUrl" style="flex:1"><button id="gcSave" type="button">Save</button></div>
+        </div>
+        <div class="row">
+          <button id="exportBtn" type="button">Export backup</button>
+          <label class="btn">Import backup<input type="file" id="importFile" accept="application/json" hidden></label>
+          <button id="resetClaims" type="button">Reset claim history</button>
+        </div>
+      </div>
+    </details>
+  </section>
+
+  <footer>Unofficial fan-made tool. Not affiliated with or endorsed by the makers of Dark War: Survival. Codes are redeemed on the official gift center; this page only keeps your list and progress, stored in this browser.</footer>
+</div>
+
+<dialog id="claimDlg">
+  <div class="dlg">
+    <div class="row between">
+      <p class="small muted" id="dlgStep"></p>
+      <button class="ghost" id="dlgClose" type="button" aria-label="Close">✕</button>
+    </div>
+    <h2 id="dlgSurv"></h2>
+    <p class="muted small">UID <span class="code" id="dlgUid"></span> <button class="ghost small" id="dlgCopyUid" type="button">Copy UID</button></p>
+    <div class="big-code" id="dlgCode"></div>
+    <button class="primary" id="dlgOpen" type="button" style="width:100%;justify-content:center">Copy code &amp; open gift center <kbd>Enter</kbd></button>
+    <p class="muted small" style="margin-top:8px">Sign in to the gift center as this survivor, paste the code and redeem it. Then come back and record the result:</p>
+    <div class="res">
+      <button class="r-ok" data-r="redeemed" type="button">Redeemed <kbd>1</kbd></button>
+      <button class="r-warn" data-r="already" type="button">Already claimed <kbd>2</kbd></button>
+      <button class="r-bad" data-r="failed" type="button">Failed <kbd>3</kbd></button>
+    </div>
+    <div class="row between" style="margin-top:10px">
+      <button class="ghost" id="dlgExpired" type="button">Code expired: skip it for everyone</button>
+      <button class="ghost" id="dlgSkip" type="button">Skip <kbd>S</kbd></button>
+    </div>
+    <div class="bar"><i id="dlgBar"></i></div>
+  </div>
+</dialog>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script id="embedded-codes" type="application/json">{
+  "updated": "2026-11-09",
+  "codes": [
+    {
+      "code": "WEBDOUBLEBONUS",
+      "status": "active",
+      "isNew": true,
+      "redemptions": 1300
+    },
+    {
+      "code": "BREEZE4",
+      "status": "active",
+      "isNew": true,
+      "redemptions": 2400
+    },
+    {
+      "code": "NOOOVEMBER",
+      "status": "active",
+      "isNew": false,
+      "redemptions": 2100
+    },
+    {
+      "code": "HELLOWIN",
+      "status": "active",
+      "isNew": false,
+      "redemptions": 2600
+    },
+    {
+      "code": "TRICK31",
+      "status": "active",
+      "isNew": false,
+      "redemptions": 2700
+    },
+    {
+      "code": "BOOBOO28",
+      "status": "active",
+      "isNew": false,
+      "redemptions": 2700
+    },
+    {
+      "code": "PUMPKIN7",
+      "status": "active",
+      "isNew": false,
+      "redemptions": 2400
+    },
+    {
+      "code": "CROW21",
+      "status": "active",
+      "isNew": false,
+      "redemptions": 2800
+    },
+    {
+      "code": "PUMPKIN14",
+      "status": "active",
+      "isNew": false,
+      "redemptions": 2500
+    },
+    {
+      "code": "ZOM8IE",
+      "status": "active",
+      "isNew": false,
+      "redemptions": 2500
+    },
+    {
+      "code": "WELCOMEDWFB",
+      "status": "active",
+      "isNew": false,
+      "redemptions": 3300
+    },
+    {
+      "code": "WELCOMEDWDC",
+      "status": "active",
+      "isNew": false,
+      "redemptions": 3300
+    },
+    {
+      "code": "WELCOMEDWX",
+      "status": "active",
+      "isNew": false,
+      "redemptions": 4200
+    },
+    {
+      "code": "WEBINVITEEVENT",
+      "status": "expired",
+      "redemptions": 1600
+    },
+    {
+      "code": "WEBINVITE",
+      "status": "expired",
+      "redemptions": 1100
+    },
+    {
+      "code": "2APPLEPIE",
+      "status": "limit",
+      "redemptions": 641
+    },
+    {
+      "code": "WEBSATURDAY",
+      "status": "expired",
+      "redemptions": 880
+    },
+    {
+      "code": "GREATCHOICE",
+      "status": "limit",
+      "redemptions": 1000
+    },
+    {
+      "code": "GAME12",
+      "status": "expired",
+      "redemptions": 1400
+    },
+    {
+      "code": "LEAF7",
+      "status": "expired",
+      "redemptions": 1300
+    },
+    {
+      "code": "MAPLE3",
+      "status": "expired",
+      "redemptions": 1100
+    },
+    {
+      "code": "BEARD9",
+      "status": "expired",
+      "redemptions": 1300
+    },
+    {
+      "code": "HAUNT7",
+      "status": "limit",
+      "redemptions": 2600
+    },
+    {
+      "code": "TEACHERS5",
+      "status": "limit",
+      "redemptions": 298
+    },
+    {
+      "code": "WEBSTORE210",
+      "status": "limit",
+      "redemptions": 2800
+    },
+    {
+      "code": "5MILY",
+      "status": "expired",
+      "redemptions": 3500
+    },
+    {
+      "code": "WEBSTOREUP",
+      "status": "limit",
+      "redemptions": 2300
+    },
+    {
+      "code": "CIDER9",
+      "status": "limit",
+      "redemptions": 3100
+    },
+    {
+      "code": "ESPRESSO29",
+      "status": "expired",
+      "redemptions": 3000
+    },
+    {
+      "code": "COFFEE3",
+      "status": "expired",
+      "redemptions": 244
+    },
+    {
+      "code": "HALLOWEEN",
+      "status": "expired",
+      "redemptions": null
+    },
+    {
+      "code": "NEWGIFTCENTER",
+      "status": "expired",
+      "redemptions": 3100
+    },
+    {
+      "code": "1PEACE",
+      "status": "limit",
+      "redemptions": 1400
+    },
+    {
+      "code": "FALL5",
+      "status": "expired",
+      "redemptions": 134
+    },
+    {
+      "code": "MOONCAKE8",
+      "status": "limit",
+      "redemptions": 2800
+    }
+  ]
+}</script>
+<script>
+(() => {
+  "use strict";
+  const KEY = "gcc.v1";
+  const MAX_SURVIVORS = 15;
+  const LABELS = ["Main", "Alt", "Friend", "Farm", "Family"];
+  const DEFAULT_GC = "https://darkwar-survival.com/giftCenter/";
+  const CODE_RE = /^[A-Z0-9]{3,32}$/;
+  const UID_RE = /^\d{6,20}$/;
+  const $ = (id) => document.getElementById(id);
+
+  // ---------- state ----------
+  const blank = () => ({ survivors: [], selected: [], claims: {}, extraCodes: [], overrides: {}, feedUrl: "", gcUrl: DEFAULT_GC, theme: "" });
+  let st = blank();
+  try { st = Object.assign(blank(), JSON.parse(localStorage.getItem(KEY) || "{}")); } catch {}
+  const save = () => { try { localStorage.setItem(KEY, JSON.stringify(st)); } catch {} };
+  let feed = { updated: "", codes: [] };
+  const progress = {}; // survivor id -> {done,total,redeemed,already,failed,status}
+
+  // ---------- helpers ----------
+  const el = (tag, props = {}, ...kids) => {
+    const n = document.createElement(tag);
+    for (const [k, v] of Object.entries(props)) {
+      if (k === "class") n.className = v;
+      else if (k.startsWith("on")) n.addEventListener(k.slice(2), v);
+      else if (v !== undefined && v !== null && v !== false) n.setAttribute(k, v === true ? "" : v);
+    }
+    for (const k of kids.flat()) if (k != null) n.append(k.nodeType ? k : String(k));
+    return n;
+  };
+  const fmt = new Intl.NumberFormat("en", { notation: "compact", maximumFractionDigits: 1 });
+  let toastT;
+  const toast = (msg) => { const t = $("toast"); t.textContent = msg; t.classList.add("show"); clearTimeout(toastT); toastT = setTimeout(() => t.classList.remove("show"), 1800); };
+  const copy = async (text, msg) => {
+    try { await navigator.clipboard.writeText(text); }
+    catch { const ta = el("textarea"); ta.value = text; document.body.append(ta); ta.select(); try { document.execCommand("copy"); } catch {} ta.remove(); }
+    toast(msg || `Copied ${text}`);
+  };
+  const survName = (s) => s.name || `Survivor ${s.uid}`;
+
+  // all codes = feed + user-added, with local status overrides
+  function allCodes() {
+    const map = new Map();
+    for (const c of feed.codes) if (c && CODE_RE.test(c.code)) map.set(c.code, { ...c });
+    for (const c of st.extraCodes) if (!map.has(c)) map.set(c, { code: c, status: "active", custom: true });
+    for (const [c, s] of Object.entries(st.overrides)) if (map.has(c)) map.get(c).status = s;
+    return [...map.values()];
+  }
+  const activeCodes = () => allCodes().filter((c) => c.status === "active");
+  const claimOf = (uid, code) => (st.claims[uid] || {})[code];
+  const isDone = (uid, code) => ["redeemed", "already"].includes(claimOf(uid, code));
+
+  // ---------- theme ----------
+  const applyTheme = () => { if (st.theme) document.documentElement.dataset.theme = st.theme; else delete document.documentElement.dataset.theme; };
+  $("themeBtn").onclick = () => {
+    const dark = st.theme ? st.theme === "dark" : matchMedia("(prefers-color-scheme: dark)").matches;
+    st.theme = dark ? "light" : "dark"; save(); applyTheme();
+  };
+
+  // ---------- render: codes ----------
+  function codeItem(c) {
+    const badges = [];
+    const mine = st.survivors.filter((s) => isDone(s.uid, c.code)).length;
+    if (c.isNew && c.status === "active") badges.push(el("span", { class: "badge b-new" }, "New"));
+    if (c.custom) badges.push(el("span", { class: "badge" }, "Added by you"));
+    if (st.survivors.length && c.status === "active")
+      badges.push(el("span", { class: "badge " + (mine === st.survivors.length ? "b-ok" : "") }, `${mine}/${st.survivors.length} claimed`));
+    badges.push(c.status === "active" ? el("span", { class: "badge" }, "Active")
+      : c.status === "limit" ? el("span", { class: "badge b-warn" }, "Redemption limit reached")
+      : el("span", { class: "badge b-bad" }, "Expired"));
+    const sub = c.redemptions != null ? `${fmt.format(c.redemptions)} successful redemptions` : c.custom ? "Code you added" : "Previously available gift code";
+    return el("li", { class: "item" },
+      el("button", { class: "ghost min0 codebtn", type: "button", title: "Copy code", onclick: () => copy(c.code) },
+        el("div", { class: "code" }, c.code), el("div", { class: "muted small", style: "font-weight:400" }, sub)),
+      el("div", { class: "row", style: "justify-content:flex-end;gap:4px" }, badges));
+  }
+  function renderCodes() {
+    const codes = allCodes();
+    const act = codes.filter((c) => c.status === "active");
+    const gone = codes.filter((c) => c.status !== "active");
+    $("activeList").replaceChildren(...(act.length ? act.map(codeItem) : [el("li", { class: "empty" }, "No active codes right now.")]));
+    $("goneList").replaceChildren(...gone.map(codeItem));
+    $("goneCount").textContent = `(${gone.length})`;
+    $("updated").textContent = feed.updated ? `Updated ${feed.updated}` : "";
+  }
+
+  // ---------- render: survivors ----------
+  function renderSurvivors() {
+    const list = $("survList");
+    $("survCount").textContent = st.survivors.length ? `(${st.survivors.length}/${MAX_SURVIVORS})` : "";
+    if (!st.survivors.length) {
+      list.replaceChildren(el("li", { class: "empty" }, "No survivors yet. Add the UID of each of your Dark War accounts below. You'll find it on your in-game profile."));
+    } else {
+      list.replaceChildren(...st.survivors.map((s) => {
+        const p = progress[s.id];
+        const pending = activeCodes().filter((c) => !isDone(s.uid, c.code)).length;
+        const sel = st.selected.includes(s.id);
+        const labelSel = el("select", { "aria-label": "Label", style: "min-height:30px;padding:2px 6px;font-size:12px",
+          onchange: (e) => { s.label = e.target.value; save(); } }, LABELS.map((l) => el("option", { value: l, selected: l === s.label }, l)));
+        const status = p
+          ? el("div", {},
+              el("div", { class: "small muted" }, p.message || `${p.done}/${p.total} · ${p.redeemed} redeemed · ${p.already} already · ${p.failed} failed`),
+              el("div", { class: "bar" }, el("i", { style: `width:${p.total ? (p.done / p.total) * 100 : 100}%` })))
+          : el("div", { class: "small muted" }, pending ? `${pending} code${pending > 1 ? "s" : ""} left to claim` : "All active codes claimed ✓");
+        return el("li", { class: "item surv" },
+          el("input", { type: "checkbox", checked: sel, "aria-label": `Select ${survName(s)}`, onchange: (e) => {
+            st.selected = e.target.checked ? [...new Set([...st.selected, s.id])] : st.selected.filter((x) => x !== s.id); save(); renderMeta(); } }),
+          el("div", { class: "min0" },
+            el("div", { class: "row", style: "gap:6px" }, el("strong", {}, survName(s)), labelSel),
+            el("div", { class: "small muted code", style: "font-weight:400" }, `UID ${s.uid}`),
+            status),
+          el("div", { class: "row", style: "gap:2px" },
+            el("button", { class: "ghost", title: "Rename", type: "button", onclick: () => {
+              const n = prompt("Survivor name", s.name || ""); if (n !== null) { s.name = n.trim().slice(0, 40); save(); render(); } } }, "✎"),
+            el("button", { class: "ghost", title: "Remove", type: "button", onclick: () => {
+              if (!confirm(`Remove ${survName(s)}? Its claim history is kept in case you add it again.`)) return;
+              st.survivors = st.survivors.filter((x) => x.id !== s.id); st.selected = st.selected.filter((x) => x !== s.id); save(); render(); } }, "🗑")));
+      }));
+    }
+    renderMeta();
+  }
+  function renderMeta() {
+    const sel = selectedSurvivors();
+    const pending = queueFor(activeCodes().map((c) => c.code)).length;
+    $("selectAll").checked = st.survivors.length > 0 && sel.length === st.survivors.length;
+    $("claimAllBtn").disabled = !sel.length || !pending;
+    $("pendingInfo").textContent = !st.survivors.length ? "" : !sel.length ? "Select at least one survivor." : pending ? `${pending} claim${pending > 1 ? "s" : ""} pending for ${sel.length} survivor${sel.length > 1 ? "s" : ""}` : "Everything claimed for the selected survivors 🎉";
+  }
+  const render = () => { renderSurvivors(); renderCodes(); };
+  const selectedSurvivors = () => st.survivors.filter((s) => st.selected.includes(s.id));
+
+  // ---------- add survivor ----------
+  $("addLabel").replaceChildren(...LABELS.map((l) => el("option", { value: l }, l)));
+  $("addLabel").value = "Alt";
+  $("addForm").onsubmit = (e) => {
+    e.preventDefault();
+    const uid = $("addUid").value.trim();
+    if (!UID_RE.test(uid)) return toast("A UID is 6–20 digits.");
+    if (st.survivors.some((s) => s.uid === uid)) return toast("That survivor is already in your list.");
+    if (st.survivors.length >= MAX_SURVIVORS) return toast(`You can add up to ${MAX_SURVIVORS} survivors.`);
+    const s = { id: crypto.randomUUID ? crypto.randomUUID() : String(Date.now()), uid, name: $("addName").value.trim().slice(0, 40), label: st.survivors.length ? $("addLabel").value : "Main" };
+    st.survivors.push(s); st.selected.push(s.id); save();
+    $("addUid").value = ""; $("addName").value = "";
+    render(); toast(`${survName(s)} added`);
+  };
+  $("selectAll").onchange = (e) => { st.selected = e.target.checked ? st.survivors.map((s) => s.id) : []; save(); renderSurvivors(); };
+
+  // ---------- claim session ----------
+  function queueFor(codes) {
+    const q = [];
+    for (const s of selectedSurvivors()) for (const code of codes) if (!isDone(s.uid, code)) q.push({ s, code });
+    return q;
+  }
+  let session = null; // {queue, i}
+  function startSession(codes) {
+    const queue = queueFor(codes);
+    if (!queue.length) return toast("Nothing left to claim for the selected survivors.");
+    for (const s of selectedSurvivors()) {
+      const total = queue.filter((x) => x.s.id === s.id).length;
+      progress[s.id] = { total, done: 0, redeemed: 0, already: 0, failed: 0, message: total ? "" : "Nothing to claim ✓" };
+    }
+    session = { queue, i: 0 };
+    renderSurvivors(); showStep(); $("claimDlg").showModal();
+  }
+  function showStep() {
+    const { queue } = session;
+    while (session.i < queue.length && st.overrides[queue[session.i].code] && st.overrides[queue[session.i].code] !== "active") skipCurrent(true);
+    if (session.i >= queue.length) return finish();
+    const { s, code } = queue[session.i];
+    $("dlgStep").textContent = `Step ${session.i + 1} of ${queue.length}`;
+    $("dlgSurv").textContent = `${survName(s)} · ${s.label}`;
+    $("dlgUid").textContent = s.uid;
+    $("dlgCode").textContent = code;
+    $("dlgBar").style.width = `${(session.i / queue.length) * 100}%`;
+    $("dlgOpen").focus();
+  }
+  function bump(sid, field) { const p = progress[sid]; if (!p) return; p.done++; if (field) p[field]++; }
+  function record(result) {
+    if (!session) return;
+    const { s, code } = session.queue[session.i];
+    (st.claims[s.uid] ||= {})[code] = result; save();
+    bump(s.id, result); session.i++; renderSurvivors(); renderCodes(); showStep();
+  }
+  function skipCurrent(silent) {
+    const { s } = session.queue[session.i];
+    bump(s.id, null); session.i++;
+    if (!silent) { renderSurvivors(); showStep(); }
+  }
+  function finish() {
+    $("claimDlg").close();
+    const sum = Object.values(progress).reduce((a, p) => (a.r += p.redeemed, a.a += p.already, a.f += p.failed, a), { r: 0, a: 0, f: 0 });
+    session = null; renderSurvivors(); renderCodes();
+    toast(`Done: ${sum.r} redeemed · ${sum.a} already claimed · ${sum.f} failed`);
+  }
+  const openGiftCenter = () => {
+    const { code } = session.queue[session.i];
+    copy(code, `Copied ${code}. Paste it in the gift center`);
+    window.open(st.gcUrl || DEFAULT_GC, "dw-gift-center");
+  };
+  $("claimAllBtn").onclick = () => startSession(activeCodes().map((c) => c.code));
+  $("dlgOpen").onclick = openGiftCenter;
+  $("dlgCopyUid").onclick = () => session && copy(session.queue[session.i].s.uid);
+  document.querySelectorAll(".res button").forEach((b) => (b.onclick = () => record(b.dataset.r)));
+  $("dlgSkip").onclick = () => skipCurrent(false);
+  $("dlgExpired").onclick = () => {
+    const { code } = session.queue[session.i];
+    st.overrides[code] = "expired"; save(); renderSurvivors(); renderCodes(); toast(`${code} marked expired`); showStep();
+  };
+  $("dlgClose").onclick = () => $("claimDlg").close();
+  $("claimDlg").addEventListener("close", () => {
+    if (!session) return;
+    for (const p of Object.values(progress)) if (p.done < p.total) p.message = `Paused: ${p.done}/${p.total} · ${p.redeemed} redeemed · ${p.already} already`;
+    session = null; renderSurvivors();
+  });
+  $("claimDlg").addEventListener("keydown", (e) => {
+    if (!session || e.target.tagName === "INPUT") return;
+    const k = e.key.toLowerCase();
+    if (k === "1") record("redeemed"); else if (k === "2") record("already"); else if (k === "3") record("failed");
+    else if (k === "s") skipCurrent(false); else if (k === "enter") { e.preventDefault(); openGiftCenter(); } else return;
+    e.preventDefault();
+  });
+
+  // typed code
+  $("typedForm").onsubmit = (e) => {
+    e.preventDefault();
+    const code = $("typedCode").value.trim().toUpperCase();
+    if (!CODE_RE.test(code)) return toast("Codes are 3–32 letters or numbers.");
+    if (!selectedSurvivors().length) return toast("Select at least one survivor first.");
+    if (!allCodes().some((c) => c.code === code)) { st.extraCodes.push(code); save(); }
+    else if (st.overrides[code]) { delete st.overrides[code]; save(); }
+    $("typedCode").value = ""; renderCodes(); startSession([code]);
+  };
+
+  // ---------- settings ----------
+  $("feedUrl").value = st.feedUrl; $("gcUrl").value = st.gcUrl || DEFAULT_GC;
+  $("feedSave").onclick = () => { st.feedUrl = $("feedUrl").value.trim(); save(); loadFeed(); };
+  $("gcSave").onclick = () => {
+    const v = $("gcUrl").value.trim();
+    try { const u = new URL(v); if (!/^https?:$/.test(u.protocol)) throw 0; st.gcUrl = u.href; save(); toast("Saved"); } catch { toast("Enter a valid http(s) URL"); }
+  };
+  $("exportBtn").onclick = () => {
+    const blob = new Blob([JSON.stringify({ app: "gift-code-center", version: 1, exportedAt: new Date().toISOString(), state: st }, null, 2)], { type: "application/json" });
+    const a = el("a", { href: URL.createObjectURL(blob), download: "gift-code-center-backup.json" }); a.click(); setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+  };
+  $("importFile").onchange = async (e) => {
+    const f = e.target.files[0]; if (!f) return;
+    try {
+      const data = JSON.parse(await f.text()); const s = data.state || data;
+      if (!Array.isArray(s.survivors)) throw 0;
+      st = Object.assign(blank(), s, { survivors: s.survivors.filter((x) => x && UID_RE.test(x.uid)).slice(0, MAX_SURVIVORS) });
+      save(); applyTheme(); render(); toast("Backup imported");
+    } catch { toast("That file isn't a valid backup."); }
+    e.target.value = "";
+  };
+  $("resetClaims").onclick = () => { if (confirm("Forget which codes every survivor has claimed?")) { st.claims = {}; save(); render(); } };
+
+  // ---------- feed ----------
+  function setFeed(data) {
+    if (!data || !Array.isArray(data.codes)) throw new Error("bad feed");
+    feed = { updated: String(data.updated || ""), codes: data.codes.map((c) => typeof c === "string" ? { code: c, status: "active" } : c)
+      .map((c) => ({ ...c, code: String(c.code || "").toUpperCase(), status: ["active", "expired", "limit"].includes(c.status) ? c.status : "active" })) };
+  }
+  async function loadFeed() {
+    try { setFeed(JSON.parse($("embedded-codes").textContent)); } catch {}
+    render();
+    const url = st.feedUrl || "codes.json";
+    if (location.protocol === "file:" && !st.feedUrl) return;
+    try {
+      const r = await fetch(url, { cache: "no-cache" });
+      if (!r.ok) throw 0;
+      setFeed(await r.json()); render();
+    } catch { if (st.feedUrl) toast("Couldn't load the code feed. Showing the built-in list."); }
+  }
+
+  applyTheme();
+  loadFeed();
+  setInterval(() => { if (!session && document.visibilityState === "visible") loadFeed(); }, 5 * 60e3);
+})();
+</script>
+</body>
+</html>

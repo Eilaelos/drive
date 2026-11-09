@@ -1,0 +1,193 @@
+{
+  "updated": "2026-11-09",
+  "codes": [
+    {
+      "code": "WEBDOUBLEBONUS",
+      "status": "active",
+      "isNew": true,
+      "redemptions": 1300
+    },
+    {
+      "code": "BREEZE4",
+      "status": "active",
+      "isNew": true,
+      "redemptions": 2400
+    },
+    {
+      "code": "NOOOVEMBER",
+      "status": "active",
+      "isNew": false,
+      "redemptions": 2100
+    },
+    {
+      "code": "HELLOWIN",
+      "status": "active",
+      "isNew": false,
+      "redemptions": 2600
+    },
+    {
+      "code": "TRICK31",
+      "status": "active",
+      "isNew": false,
+      "redemptions": 2700
+    },
+    {
+      "code": "BOOBOO28",
+      "status": "active",
+      "isNew": false,
+      "redemptions": 2700
+    },
+    {
+      "code": "PUMPKIN7",
+      "status": "active",
+      "isNew": false,
+      "redemptions": 2400
+    },
+    {
+      "code": "CROW21",
+      "status": "active",
+      "isNew": false,
+      "redemptions": 2800
+    },
+    {
+      "code": "PUMPKIN14",
+      "status": "active",
+      "isNew": false,
+      "redemptions": 2500
+    },
+    {
+      "code": "ZOM8IE",
+      "status": "active",
+      "isNew": false,
+      "redemptions": 2500
+    },
+    {
+      "code": "WELCOMEDWFB",
+      "status": "active",
+      "isNew": false,
+      "redemptions": 3300
+    },
+    {
+      "code": "WELCOMEDWDC",
+      "status": "active",
+      "isNew": false,
+      "redemptions": 3300
+    },
+    {
+      "code": "WELCOMEDWX",
+      "status": "active",
+      "isNew": false,
+      "redemptions": 4200
+    },
+    {
+      "code": "WEBINVITEEVENT",
+      "status": "expired",
+      "redemptions": 1600
+    },
+    {
+      "code": "WEBINVITE",
+      "status": "expired",
+      "redemptions": 1100
+    },
+    {
+      "code": "2APPLEPIE",
+      "status": "limit",
+      "redemptions": 641
+    },
+    {
+      "code": "WEBSATURDAY",
+      "status": "expired",
+      "redemptions": 880
+    },
+    {
+      "code": "GREATCHOICE",
+      "status": "limit",
+      "redemptions": 1000
+    },
+    {
+      "code": "GAME12",
+      "status": "expired",
+      "redemptions": 1400
+    },
+    {
+      "code": "LEAF7",
+      "status": "expired",
+      "redemptions": 1300
+    },
+    {
+      "code": "MAPLE3",
+      "status": "expired",
+      "redemptions": 1100
+    },
+    {
+      "code": "BEARD9",
+      "status": "expired",
+      "redemptions": 1300
+    },
+    {
+      "code": "HAUNT7",
+      "status": "limit",
+      "redemptions": 2600
+    },
+    {
+      "code": "TEACHERS5",
+      "status": "limit",
+      "redemptions": 298
+    },
+    {
+      "code": "WEBSTORE210",
+      "status": "limit",
+      "redemptions": 2800
+    },
+    {
+      "code": "5MILY",
+      "status": "expired",
+      "redemptions": 3500
+    },
+    {
+      "code": "WEBSTOREUP",
+      "status": "limit",
+      "redemptions": 2300
+    },
+    {
+      "code": "CIDER9",
+      "status": "limit",
+      "redemptions": 3100
+    },
+    {
+      "code": "ESPRESSO29",
+      "status": "expired",
+      "redemptions": 3000
+    },
+    {
+      "code": "COFFEE3",
+      "status": "expired",
+      "redemptions": 244
+    },
+    {
+      "code": "HALLOWEEN",
+      "status": "expired",
+      "redemptions": null
+    },
+    {
+      "code": "NEWGIFTCENTER",
+      "status": "expired",
+      "redemptions": 3100
+    },
+    {
+      "code": "1PEACE",
+      "status": "limit",
+      "redemptions": 1400
+    },
+    {
+      "code": "FALL5",
+      "status": "expired",
+      "redemptions": 134
+    },
+    {
+      "code": "MOONCAKE8",
+      "status": "limit",
+      "redemptions": 2800
+    }
+  ]
+}
